@@ -5,14 +5,20 @@ import type { GraphQLContext } from './types';
 import { dataStore } from './database/index';
 import { GraphQLError } from 'graphql';
 import typeDefs from './graphql/typeDefs';
+import { createYoga, createSchema } from 'graphql-yoga';
+import { createServer } from 'http';
 
 // The ApolloServer constructor requires two parameters: your schema
 // definition and your set of resolvers.
-const server = new ApolloServer<GraphQLContext>({
-    typeDefs,
-    resolvers,
-    introspection: false,
-});
+// const server = new ApolloServer<GraphQLContext>({
+//     typeDefs,
+//     resolvers,
+//     introspection: false,
+// });
+
+const yoga = createYoga({ schema: createSchema({ typeDefs, resolvers }) });
+
+const server = createServer(yoga);
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
 //  1. creates an Express app
@@ -20,30 +26,31 @@ const server = new ApolloServer<GraphQLContext>({
 //  3. prepares your app to handle incoming requests
 // NOTE: We use top-level await here because we're in a Node.js module.
 
-const startServer = async () => {
-    const { url } = await startStandaloneServer(server, {
+// const startServer = async () => {
+//     const { url } = await startStandaloneServer(server, {
 
-        // GraphQL Context is a place to store data that is shared across all resolvers, or perform operations like authentication
-        context: async ({ req }) => {
-            const token = req.headers['X-Api-Key'] || '';
-            if (token !== '12345') {
-                throw new GraphQLError('Invalid API Key', {
-                    extensions: {
-                        code: 'UNAUTHENTICATED',
-                        http: { status: 401}
-                    }
-                });
-            }
-            // Here we return an object that will be available to all resolvers
-            return {
-                dataStore
-            }
-        },
-        listen: { port: 4000 } 
+//         // GraphQL Context is a place to store data that is shared across all resolvers, or perform operations like authentication
+//         context: async ({ req }) => {
+//             const token = req.headers['X-Api-Key'] || '';
+//             if (token !== '12345') {
+//                 throw new GraphQLError('Invalid API Key', {
+//                     extensions: {
+//                         code: 'UNAUTHENTICATED',
+//                         http: { status: 401}
+//                     }
+//                 });
+//             }
+//             // Here we return an object that will be available to all resolvers
+//             return {
+//                 dataStore
+//             }
+//         },
+//         listen: { port: 4000 } 
 
-    });
-    console.log(`🚀 Server listening at: ${url}`);
-}
+//     });
+//     console.log(`🚀 Server listening at: ${url}`);
+// }
 
-startServer().then(() => console.log('Server started!')).catch(err => console.log(err));
+// startServer().then(() => console.log('Server started!')).catch(err => console.log(err));
 
+server.listen(4000, () => console.log('Server started!'));
