@@ -1,6 +1,7 @@
 
 // GraphQL type definitions
-export const typeDefs = `#graphql
+
+const typeDefs = `#graphql
     type Patient {
         id: ID!
         firstName: String!
@@ -8,21 +9,21 @@ export const typeDefs = `#graphql
         email: String!
         dob: String!
         sexAtBirth: String!
-        labs: Lab[]
+        labs: [Lab]!
         insurance: Insurance
-        appointments: Appointment[]
+        appointments: [Appointment]!
     }
 
     type Lab {
         id: ID!
-        patientId: ID!
+        patient: Patient!
         name: String!
         date: String!
     }
 
     type Insurance {
         id: ID!
-        patientId: ID!
+        patient: Patient!
         name: String!
         address: String!
         phoneNumber: String!
@@ -32,13 +33,13 @@ export const typeDefs = `#graphql
         id: ID!
         startTime: String!
         duration: Int!
-        patientId: ID!
+        patient: Patient!
         providerName: String!
         appointmentType: String!
     }
 
     type Query {
-        patients: [Patient]
+        # patients: [Patient]
         patient(id: ID!): Patient
         labs: [Lab]
         lab(id: ID!): Lab
@@ -48,3 +49,5 @@ export const typeDefs = `#graphql
         appointment(id: ID!): Appointment
     }
 `;
+
+export default typeDefs;

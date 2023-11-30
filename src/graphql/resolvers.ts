@@ -1,22 +1,20 @@
-import { dataStore as store } from "../database";
-
+import type { GraphQLContext } from "../types";
 
 // GraphQL Resolvers with Types
-export const resolvers = {
+const resolvers = {
     Query: {
-        patients: async (_parent, _args, { dataStore }) => {
-            return dataStore.patients();
+        patient: async (_parent, args, { dataStore }: GraphQLContext) => {
+           const r =  dataStore.patient(args.id);
+           console.log('PATIENT RESOLVERSSSSSSSSS', r);
+              return r;
         },
-        patient: async (_parent, args, { dataStore }) => {
-            return dataStore.patient(args.id);
-        },
-        labs: async (_parent, _args, { dataStore }) => {
+        labs: async (_parent, _args, { dataStore }: GraphQLContext) => {
             return dataStore.labs();
         },
-        lab: async (_parent, args, { dataStore }) => {
+        lab: async (_parent, args, { dataStore }: GraphQLContext) => {
             return dataStore.lab(args.id);
         },
-        insurances: async (_parent, _args, { dataStore }) => {
+        insurances: async (_parent, _args, { dataStore }: GraphQLContext) => {
             return dataStore.insurances();
         },
         insurance: async (_parent, args, { dataStore }) => {
@@ -31,14 +29,32 @@ export const resolvers = {
     },
     Patient: {
         labs: async (patient, _args, { dataStore }) => {
-            return dataStore.labsAPI.getLabsByPatientId(patient.id);
+            return dataStore.labs().filter(l => l.patientId === patient.id);
         },
         insurance: async (patient, _args, { dataStore }) => {
-            return dataStore.insuranceAPI.getInsuranceByPatientId(patient.id);
+            return dataStore.insurances().find(i => i.patientId === patient.id);
         },
         appointments: async (patient, _args, { dataStore }) => {
-            return dataStore.appointmentsAPI.getAppointmentsByPatientId(patient.id);
+            return dataStore.appointments().filter(a => a.patientId === patient.id);
+        }
+    },
+    Lab: {
+        patient: async (lab, _args, { dataStore }) => {
+            return dataStore.patient(lab.patientId);
+        }
+    },
+    Insurance: {
+        patient: async (insurance, _args, { dataStore }) => {
+            return dataStore.patient(insurance.patientId);
+        }
+    },
+    Appointment: {
+        patient: async (appointment, _args, { dataStore }) => {
+            return dataStore.patient(appointment.patientId);
         }
     }
+
 };
+
+export default resolvers;
 

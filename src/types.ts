@@ -1,4 +1,4 @@
-import { dataStore } from "./database";
+import { dataStore } from "./database/index";
 
 // GraphQL Context
 export type GraphQLContext = {

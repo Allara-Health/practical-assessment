@@ -1,4 +1,4 @@
-import { Patient, Lab, Insurance, Appointment } from "../types"
+import type { Patient, Lab, Insurance, Appointment } from "../types"
 import { labData, patientData, insuranceData, appointmentData } from "./data"
 
 // This is a "data store" that holds the data in memory
