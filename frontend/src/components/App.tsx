@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { Routes, Route} from 'react-router-dom';
-import PatientProfile from './PatientProfile';
+import PatientProfile from '../PatientProfile';
 import Home from './Home';
 
 function App() {

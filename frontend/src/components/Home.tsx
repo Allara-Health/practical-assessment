@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import { useQuery, gql } from '@apollo/client';
-import { Routes, Route, useNavigate, Link } from 'react-router-dom';
-import PatientProfile from './PatientProfile';
+import { Link } from 'react-router-dom';
 
 // Example Query
 const GET_PATIENTS = gql`
