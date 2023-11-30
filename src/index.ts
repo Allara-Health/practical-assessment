@@ -11,7 +11,7 @@ import typeDefs from './graphql/typeDefs';
 const server = new ApolloServer<GraphQLContext>({
     typeDefs,
     resolvers,
-    introspection: true,
+    introspection: false,
 });
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
