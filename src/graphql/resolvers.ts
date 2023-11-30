@@ -1,55 +1,54 @@
+import { dataStore } from "../database";
 import type { GraphQLContext } from "../types";
 
 // GraphQL Resolvers with Types
 const resolvers = {
     Query: {
-        patient: async (_parent, args, { dataStore }: GraphQLContext) => {
-           const r =  dataStore.patient(args.id);
-           console.log('PATIENT RESOLVERSSSSSSSSS', r);
-              return r;
+        patient: async (_parent, args) => {
+            return dataStore.patient(args.id);
         },
-        labs: async (_parent, _args, { dataStore }: GraphQLContext) => {
+        labs: async (_parent, _args) => {
             return dataStore.labs();
         },
-        lab: async (_parent, args, { dataStore }: GraphQLContext) => {
+        lab: async (_parent, args) => {
             return dataStore.lab(args.id);
         },
-        insurances: async (_parent, _args, { dataStore }: GraphQLContext) => {
+        insurances: async (_parent, _args) => {
             return dataStore.insurances();
         },
-        insurance: async (_parent, args, { dataStore }) => {
+        insurance: async (_parent, args) => {
             return dataStore.insurance(args.id);
         },
-        appointments: async (_parent, _args, { dataStore }) => {
+        appointments: async (_parent, _args) => {
             return dataStore.appointments();
         },
-        appointment: async (_parent, args, { dataStore }) => {
+        appointment: async (_parent, args) => {
             return dataStore.appointment(args.id);
         }
     },
     Patient: {
-        labs: async (patient, _args, { dataStore }) => {
+        labs: async (patient, _args) => {
             return dataStore.labs().filter(l => l.patientId === patient.id);
         },
-        insurance: async (patient, _args, { dataStore }) => {
+        insurance: async (patient, _args) => {
             return dataStore.insurances().find(i => i.patientId === patient.id);
         },
-        appointments: async (patient, _args, { dataStore }) => {
+        appointments: async (patient, _args) => {
             return dataStore.appointments().filter(a => a.patientId === patient.id);
         }
     },
     Lab: {
-        patient: async (lab, _args, { dataStore }) => {
+        patient: async (lab, _args) => {
             return dataStore.patient(lab.patientId);
         }
     },
     Insurance: {
-        patient: async (insurance, _args, { dataStore }) => {
+        patient: async (insurance, _args) => {
             return dataStore.patient(insurance.patientId);
         }
     },
     Appointment: {
-        patient: async (appointment, _args, { dataStore }) => {
+        patient: async (appointment, _args) => {
             return dataStore.patient(appointment.patientId);
         }
     }
