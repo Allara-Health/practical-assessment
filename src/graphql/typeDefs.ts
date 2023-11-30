@@ -39,7 +39,7 @@ const typeDefs = `#graphql
     }
 
     type Query {
-        # patients: [Patient]
+        patients: [Patient]
         patient(id: ID!): Patient
         labs: [Lab]
         lab(id: ID!): Lab

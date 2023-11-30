@@ -1,11 +1,13 @@
 import { dataStore } from "../database";
-import type { GraphQLContext } from "../types";
 
 // GraphQL Resolvers with Types
 const resolvers = {
     Query: {
         patient: async (_parent, args) => {
             return dataStore.patient(args.id);
+        },
+        patients: async (_parent, _args) => {
+            return dataStore.patients();
         },
         labs: async (_parent, _args) => {
             return dataStore.labs();

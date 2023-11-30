@@ -5,7 +5,6 @@ export type GraphQLContext = {
     dataStore: typeof dataStore;
 };
 
-
 // Types for data that is stored in the database
 export type AppointmentType = 'Initial MD' | 'Followup Nutrition' | 'Initial Nutrition' | 'Followup MD'
 
