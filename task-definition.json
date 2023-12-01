@@ -1,0 +1,154 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "source-worker-container",
+      "image": "docker.io/estebanrules/source-server:latest-28",
+      "cpu": 256,
+      "memory": 512,
+      "portMappings": [],
+      "essential": true,
+      "environment": [
+        {
+          "name": "MAILTRAP_MAILBOX_ID",
+          "value": "1402372"
+        },
+        {
+          "name": "S3_FILE_UPLOAD_BUCKET",
+          "value": "source.us-east-1.staging.file-uploads"
+        },
+        {
+          "name": "API_BASE_URL",
+          "value": "api.allara-aws.net"
+        },
+        {
+          "name": "ALLOW_NEW_USER_PASSWORD",
+          "value": "true"
+        },
+        {
+          "name": "SMTP_USERNAME",
+          "value": "api"
+        },
+        {
+          "name": "DB_USER",
+          "value": "postgres"
+        },
+        {
+          "name": "ENABLE_ABLY",
+          "value": "true"
+        },
+        {
+          "name": "DB_NAME",
+          "value": "catalyst"
+        },
+        {
+          "name": "SKIP_GRAPHQL_BUILD",
+          "value": "true"
+        },
+        {
+          "name": "DATABASE_URL",
+          "value": "postgres://postgres:RxScala1979!@allara-rds-instance151256dc.cgbxon9i6lgs.us-east-1.rds.amazonaws.com:5432/catalyst"
+        },
+        {
+          "name": "SMTP_PORT",
+          "value": "587"
+        },
+        {
+          "name": "DB_PASS",
+          "value": "RxScala1979!"
+        },
+        {
+          "name": "DATABASE_READONLY_URL",
+          "value": "postgres://postgres:RxScala1979!@allara-rds-instance151256dc.cgbxon9i6lgs.us-east-1.rds.amazonaws.com:5432/catalyst"
+        },
+        {
+          "name": "SMTP_PASSWORD",
+          "value": "9df482bbd841574054315d08d951bfd8"
+        },
+        {
+          "name": "S3_FILE_UPLOAD_BUCKET_REGION",
+          "value": "us-east-1"
+        },
+        {
+          "name": "AWS_REGION",
+          "value": "us-east-1"
+        },
+        {
+          "name": "ABLY_SECRET_TOKEN",
+          "value": "Y7Yg8g.De8ipg:Y_S4nA1_5LczpecgWNcdoWTN1qRX1uLIwcjgCi2_rvk"
+        },
+        {
+          "name": "ENABLE_WORKER",
+          "value": "true"
+        },
+        {
+          "name": "REQUIRE_TLS",
+          "value": "true"
+        },
+        {
+          "name": "SMTP_HOST",
+          "value": "live.smtp.mailtrap.io"
+        },
+        {
+          "name": "DB_POOL_SIZE",
+          "value": "100"
+        },
+        {
+          "name": "TWILIO_FUNCTIONS_APP_URL",
+          "value": "https://sh-messaging-staging-4514.twil.io"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "allara-rds-instance151256dc.cgbxon9i6lgs.us-east-1.rds.amazonaws.com"
+        },
+        {
+          "name": "FROM_EMAIL",
+          "value": "hello@allara-aws.net"
+        },
+        {
+          "name": "MAILTRAP_API_TOKEN",
+          "value": "9df482bbd841574054315d08d951bfd8"
+        },
+        {
+          "name": "NODE_ENV",
+          "value": "production"
+        },
+        {
+          "name": "STRIPE_ENABLED",
+          "value": "true"
+        },
+        {
+          "name": "TWILIO_AUTH_TOKEN",
+          "value": "24ad0b7b44428c0441b5adfb8993a99d"
+        },
+        {
+          "name": "TWILIO_ACCOUNT_SID",
+          "value": "ACc8e57d9931fa6b8b90d4605e0dfc9dea"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-create-group": "true",
+          "awslogs-group": "source-worker",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "source-worker-container"
+        }
+      }
+    }
+  ],
+  "family": "source-worker-task-79b027bb",
+  "taskRoleArn": "arn:aws:iam::740573385146:role/stagingTaskRole",
+  "executionRoleArn": "arn:aws:iam::740573385146:role/ECSTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "volumes": [],
+  "placementConstraints": [],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "registeredAt": "2023-11-29T13:32:36.650000-05:00",
+  "registeredBy": "arn:aws:sts::740573385146:assumed-role/AWSReservedSSO_AdministratorAccess_294282c0e8bd36ae/damian@allarahealth.com"
+}
